@@ -123,9 +123,29 @@ export default function LoginPage() {
             Login
           </button>
         </form>
+        <div className="flex justify-center border">
+          <button
+            className="m-4 rounded-lg bg-yellow-500 p-2 text-white"
+            onClick={async () => {
+              try {
+                const response = await axios.post(
+                  process.env.NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL +
+                    "products/access-token-test",
+                  {}, // Body can be empty if cookies are sent via headers
+                  {
+                    withCredentials: true, // Ensure cookies are included in the request
+                  },
+                );
+                console.log(response.data, response);
+              } catch (error) {
+                console.log(error, "======error comgn in 2nd");
+              }
+            }}
+          >
+            button to test the access token after login
+          </button>
+        </div>
       </div>
-      <h2 className="text-red-600">anoter api call</h2>
-      <button></button>
     </div>
   );
 }
