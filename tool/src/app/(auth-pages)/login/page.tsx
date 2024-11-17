@@ -19,14 +19,8 @@ export default function LoginPage() {
   // Define the submit handler with proper typing
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     console.log(data);
-    console.log(
-      process.env.NEXT_PUBLIC_AUTH_MICROSERVICE_URL + "auth/sign-in",
-      "==============",
-    );
-
     try {
       // Make the API request to the backend using axios
-      console.log("api call started======>");
 
       const response = await axios.post(
         process.env.NEXT_PUBLIC_AUTH_MICROSERVICE_URL + "auth/sign-in",
@@ -46,6 +40,38 @@ export default function LoginPage() {
     } catch (error) {
       console.error("Error during login:", error);
       // Optionally, you can show an error message to the user here
+    }
+  };
+
+  const apiRequestWithHttpCookie = async () => {
+    try {
+      const response = await axios.post(
+        process.env.NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL +
+          "products/access-token-test",
+        {}, // Body can be empty if cookies are sent via headers
+        {
+          withCredentials: true, // Ensure cookies are included in the request
+        },
+      );
+      console.log(response.data, response);
+    } catch (error) {
+      console.log(error, "======error comgn in 2nd");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post(
+        process.env.NEXT_PUBLIC_AUTH_MICROSERVICE_URL + "auth/logout",
+        {},
+        {
+          withCredentials: true,
+        },
+      );
+      console.log("Logout successful====", res);
+      // Redirect or clear client-side state
+    } catch (error) {
+      console.error("Error during logout:", error);
     }
   };
 
@@ -123,26 +149,18 @@ export default function LoginPage() {
             Login
           </button>
         </form>
-        <div className="flex justify-center border">
+        <div className="mt-4 flex flex-col justify-center rounded-md border bg-[#00000010]">
           <button
             className="m-4 rounded-lg bg-yellow-500 p-2 text-white"
-            onClick={async () => {
-              try {
-                const response = await axios.post(
-                  process.env.NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL +
-                    "products/access-token-test",
-                  {}, // Body can be empty if cookies are sent via headers
-                  {
-                    withCredentials: true, // Ensure cookies are included in the request
-                  },
-                );
-                console.log(response.data, response);
-              } catch (error) {
-                console.log(error, "======error comgn in 2nd");
-              }
-            }}
+            onClick={apiRequestWithHttpCookie}
           >
             button to test the access token after login
+          </button>
+          <button
+            onClick={handleLogout}
+            className="m-4 rounded-lg bg-green-500 p-2 text-white"
+          >
+            logout
           </button>
         </div>
       </div>
