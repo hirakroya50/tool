@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
+import { api } from "~/trpc/react";
 // Define the types for form data
 type LoginFormInputs = {
   email: string;
@@ -15,31 +16,21 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>(); // Pass the form type
+  const signIn = api.auth.signIn.useMutation({});
 
   // Define the submit handler with proper typing
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     console.log(data);
     try {
-      // Make the API request to the backend using axios
+      const res = await signIn.mutateAsync(data);
 
-      const response = await axios.post(
-        process.env.NEXT_PUBLIC_AUTH_MICROSERVICE_URL + "auth/sign-in",
-        data, // axios automatically serializes the object to JSON
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true, // Ensures that cookies are sent and received
-        },
-      );
+      if (!res) {
+        alert("login not sucessfull");
+      }
 
-      console.log("api call ended======>", response);
-
-      // Handle successful login (e.g., store token, redirect)
-      console.log("Login successful:", response.data);
+      alert("login sucessfull");
     } catch (error) {
-      console.error("Error during login:", error);
-      // Optionally, you can show an error message to the user here
+      console.log("error coming");
     }
   };
 
