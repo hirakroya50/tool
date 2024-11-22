@@ -64,6 +64,16 @@ export default function LoginPage() {
         <h2 className="mb-6 text-center text-2xl font-bold text-gray-700">
           Login
         </h2>
+        <p className="font-semibold underline">painidng work i can do:</p>
+        <p>1.make the ui as like dark mode</p>
+        <p>
+          2.apiRequestWithHttpCookie api call not sending the api call , me be
+          because of the login intrigatio doen in trpc or there will be anotehr
+          issue
+        </p>
+        <p>
+          3. use costom hook for the api call or use the trpc for the api call
+        </p>
 
         {/* <button className="border bg-blue-400" onClick={reset}>
           Reset
