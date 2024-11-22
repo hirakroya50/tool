@@ -2,20 +2,18 @@ import toast from "react-hot-toast";
 import { api } from "~/trpc/react";
 
 export const useLoginHook = () => {
-  toast.success("on muted successfully");
-
   return api.auth.signIn.useMutation({
     onMutate: ({}) => {
-      toast.success("on muted successfully");
+      // console.log("11111");
     },
     onSuccess: () => {
-      toast.success(" successfully");
+      toast.success("login successfully");
     },
-    onError: () => {
-      toast.error("Something went wrong");
+    onError: (error) => {
+      toast.error(error.message || "Something went wrong");
     },
     onSettled: () => {
-      toast.success("onSettled");
+      // console.log("44444");
     },
   });
 };

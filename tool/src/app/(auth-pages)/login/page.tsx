@@ -21,7 +21,6 @@ export default function LoginPage() {
     mutate,
     data: apidata,
     status,
-
     error,
     isError: ourError,
     isSuccess,
@@ -31,15 +30,12 @@ export default function LoginPage() {
   // Define the submit handler with proper typing
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    console.log(data);
-    toast.success("on muted successfully");
-
     mutate(data);
   };
 
-  console.log("apidata----", apidata, status);
   const isLoading = status === "pending";
   const isError = status === "error";
+
   const apiRequestWithHttpCookie = async () => {
     try {
       const response = await axios.post(
@@ -50,7 +46,6 @@ export default function LoginPage() {
           withCredentials: true, // Ensure cookies are included in the request
         },
       );
-      console.log(response.data, response);
     } catch (error) {
       console.log(error, "======error comgn in 2nd");
     }
@@ -65,7 +60,6 @@ export default function LoginPage() {
           withCredentials: true,
         },
       );
-      console.log("Logout successful====", res);
       // Redirect or clear client-side state
     } catch (error) {
       console.error("Error during logout:", error);
@@ -78,12 +72,11 @@ export default function LoginPage() {
         <h2 className="mb-6 text-center text-2xl font-bold text-gray-700">
           Login
         </h2>
-        <p>status:{status}</p>
-        {isError && <p>Error: {error?.message}</p>}
-        {isSuccess && <p>Welcome back!</p>}
-        <button className="border bg-blue-400" onClick={reset}>
+
+        {/* <button className="border bg-blue-400" onClick={reset}>
           Reset
-        </button>
+        </button> */}
+
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="mb-4">
             <label

@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import axios from "axios";
 import { z } from "zod";
 
@@ -18,23 +19,22 @@ export const authRouter = createTRPCRouter({
           input,
           { withCredentials: true },
         );
-        console.log(response.data);
         return {
           accessToken: response.data.accessToken,
           refreshToken: response.data.refreshToken,
         }; // Return the relevant data to the client
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          // Handle Axios errors
-          console.error("trpc-Axios error message: ", error.message);
-          console.error("trpc-Response data:", error.response?.data);
-        } else if (error instanceof Error) {
-          // Handle generic errors
-          console.error("trpc-Generic error message:", error.message);
-        } else {
-          // Handle unexpected errors
-          console.error("trpc-Unexpected error:", error);
+          throw new TRPCError({
+            code: error?.response?.status === 401 ? "UNAUTHORIZED" : "CONFLICT", // Map HTTP status to tRPC codes
+            message: error?.response?.data?.message || "An error occurred",
+          });
         }
+        // Handle unexpected errors
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong",
+        });
       }
     }),
 });
