@@ -4,6 +4,7 @@ import axios from "axios";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { useLoginHook } from "~/hooks/auth";
+import { useAccessTokenTest } from "~/hooks/useAccessTokenTest";
 
 // Define the types for form data
 type LoginFormInputs = {
@@ -36,21 +37,6 @@ export default function LoginPage() {
   const isLoading = status === "pending";
   const isError = status === "error";
 
-  const apiRequestWithHttpCookie = async () => {
-    try {
-      const response = await axios.post(
-        process.env.NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL +
-          "products/access-token-test",
-        {}, // Body can be empty if cookies are sent via headers
-        {
-          withCredentials: true, // Ensure cookies are included in the request
-        },
-      );
-    } catch (error) {
-      console.log(error, "======error comgn in 2nd");
-    }
-  };
-
   const handleLogout = async () => {
     try {
       const res = await axios.post(
@@ -65,7 +51,13 @@ export default function LoginPage() {
       console.error("Error during logout:", error);
     }
   };
-
+  const {
+    apiRequestWithHttpCookie,
+    loading: buttonLoadingApiRequestWithHttpCookie,
+    error: errorApiRequestWithHttpCookie,
+    data: dataApiRequestWithHttpCookie,
+  } = useAccessTokenTest();
+  console.log(dataApiRequestWithHttpCookie, "=====apiRequestWithHttpCookie");
   return (
     <div className="flex h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
@@ -149,9 +141,14 @@ export default function LoginPage() {
         <div className="mt-4 flex flex-col justify-center rounded-md border bg-[#00000010]">
           <button
             className="m-4 rounded-lg bg-yellow-500 p-2 text-white"
-            onClick={apiRequestWithHttpCookie}
+            onClick={async () => {
+              await apiRequestWithHttpCookie();
+            }}
+            disabled={buttonLoadingApiRequestWithHttpCookie} // Disable button while loading
           >
-            button to test the access token after login
+            {buttonLoadingApiRequestWithHttpCookie
+              ? "Loading..."
+              : " button to test the access token after login"}
           </button>
           <button
             onClick={handleLogout}
