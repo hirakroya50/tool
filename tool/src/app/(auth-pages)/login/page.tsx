@@ -59,31 +59,34 @@ export default function LoginPage() {
   } = useAccessTokenTest();
   console.log(dataApiRequestWithHttpCookie, "=====apiRequestWithHttpCookie");
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
-        <h2 className="mb-6 text-center text-2xl font-bold text-gray-700">
+    <div className="flex h-screen items-center justify-center bg-gray-900">
+      <div className="w-full max-w-md rounded-lg bg-gray-800 p-8 shadow-lg">
+        <h2 className="mb-6 text-center text-2xl font-bold text-gray-200">
           Login
         </h2>
-        <p className="font-semibold underline">painidng work i can do:</p>
-        <p>1.make the ui as like dark mode</p>
-        <p>
-          2.apiRequestWithHttpCookie api call not sending the api call , me be
-          because of the login intrigatio doen in trpc or there will be anotehr
-          issue
+        <p className="font-semibold text-gray-300 underline">
+          Painting work I can do:
         </p>
-        <p>
-          3. use costom hook for the api call or use the trpc for the api call
+        <p className="text-gray-300">
+          1. Make the UI look like dark mode by tailwind config
+        </p>
+        <p className="text-gray-300">
+          2. The `apiRequestWithHttpCookie` API call ist working, possibly due
+          to login integration issues with tRPC or another problem.
+        </p>
+        <p className="text-gray-300">
+          3. Use a custom hook for the API call or tRPC for API handling.
         </p>
 
         {/* <button className="border bg-blue-400" onClick={reset}>
-          Reset
-        </button> */}
+        Reset
+      </button> */}
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="mb-2 block text-sm font-medium text-gray-700"
+              className="mb-2 block text-sm font-medium text-gray-300"
             >
               Email
             </label>
@@ -97,7 +100,7 @@ export default function LoginPage() {
                   message: "Please enter a valid email address",
                 },
               })}
-              className={`w-full rounded-lg border px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 ${
+              className={`w-full rounded-lg border bg-gray-700 px-4 py-2 text-gray-300 focus:outline-none focus:ring-2 ${
                 errors.email
                   ? "border-red-500 focus:ring-red-500"
                   : "focus:ring-blue-500"
@@ -113,7 +116,7 @@ export default function LoginPage() {
           <div className="mb-4">
             <label
               htmlFor="password"
-              className="mb-2 block text-sm font-medium text-gray-700"
+              className="mb-2 block text-sm font-medium text-gray-300"
             >
               Password
             </label>
@@ -127,7 +130,7 @@ export default function LoginPage() {
                   message: "Password must be at least 6 characters long",
                 },
               })}
-              className={`w-full rounded-lg border px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 ${
+              className={`w-full rounded-lg border bg-gray-700 px-4 py-2 text-gray-300 focus:outline-none focus:ring-2 ${
                 errors.password
                   ? "border-red-500 focus:ring-red-500"
                   : "focus:ring-blue-500"
@@ -143,14 +146,14 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            {isLoading ? "loading..." : "login"}
+            {isLoading ? "Loading..." : "Login"}
           </button>
         </form>
-        <div className="mt-4 flex flex-col justify-center rounded-md border bg-[#00000010]">
+        <div className="mt-4 flex flex-col justify-center rounded-md border bg-gray-700">
           <button
-            className="m-4 rounded-lg bg-yellow-500 p-2 text-white"
+            className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700"
             onClick={async () => {
               await apiRequestWithHttpCookie();
             }}
@@ -158,13 +161,13 @@ export default function LoginPage() {
           >
             {buttonLoadingApiRequestWithHttpCookie
               ? "Loading..."
-              : " button to test the access token after login"}
+              : "Test the access token after login"}
           </button>
           <button
             onClick={handleLogout}
-            className="m-4 rounded-lg bg-green-500 p-2 text-white"
+            className="m-4 rounded-lg bg-green-600 p-2 text-white hover:bg-green-700"
           >
-            logout
+            Logout
           </button>
         </div>
       </div>
