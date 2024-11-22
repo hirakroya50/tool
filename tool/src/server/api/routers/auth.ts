@@ -19,7 +19,10 @@ export const authRouter = createTRPCRouter({
           { withCredentials: true },
         );
         console.log(response.data);
-        return response.data; // Return the relevant data to the client
+        return {
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
+        }; // Return the relevant data to the client
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
           // Handle Axios errors

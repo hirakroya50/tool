@@ -2,8 +2,9 @@
 
 import axios from "axios";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import { useLoginHook } from "~/hooks/auth";
 
-import { api } from "~/trpc/react";
 // Define the types for form data
 type LoginFormInputs = {
   email: string;
@@ -16,24 +17,29 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>(); // Pass the form type
-  const signIn = api.auth.signIn.useMutation({});
+  const {
+    mutate,
+    data: apidata,
+    status,
+
+    error,
+    isError: ourError,
+    isSuccess,
+    reset,
+  } = useLoginHook();
 
   // Define the submit handler with proper typing
+
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     console.log(data);
-    try {
-      const res = await signIn.mutateAsync(data);
+    toast.success("on muted successfully");
 
-      if (!res) {
-        alert("login not sucessfull");
-      }
-
-      alert("login sucessfull");
-    } catch (error) {
-      console.log("error coming");
-    }
+    mutate(data);
   };
 
+  console.log("apidata----", apidata, status);
+  const isLoading = status === "pending";
+  const isError = status === "error";
   const apiRequestWithHttpCookie = async () => {
     try {
       const response = await axios.post(
@@ -72,6 +78,12 @@ export default function LoginPage() {
         <h2 className="mb-6 text-center text-2xl font-bold text-gray-700">
           Login
         </h2>
+        <p>status:{status}</p>
+        {isError && <p>Error: {error?.message}</p>}
+        {isSuccess && <p>Welcome back!</p>}
+        <button className="border bg-blue-400" onClick={reset}>
+          Reset
+        </button>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="mb-4">
             <label
@@ -135,9 +147,10 @@ export default function LoginPage() {
 
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Login
+            {isLoading ? "loading..." : "login"}
           </button>
         </form>
         <div className="mt-4 flex flex-col justify-center rounded-md border bg-[#00000010]">

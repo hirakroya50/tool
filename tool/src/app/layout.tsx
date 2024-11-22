@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -17,6 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            duration: 2000,
+          }}
+        />
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>
