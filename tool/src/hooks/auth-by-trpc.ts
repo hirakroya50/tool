@@ -17,3 +17,20 @@ export const useLoginHook = () => {
     },
   });
 };
+
+export const useApiRequestWithHttpCookieHook = () => {
+  return api.auth.apiRequestWithHttpCookie.useMutation({
+    onMutate: () => {
+      // console.log("11111");
+    },
+    onSuccess: () => {
+      // toast.success("login successfully");
+    },
+    onError: (error) => {
+      // toast.error(error.message || "Something went wrong");
+    },
+    onSettled: () => {
+      // console.log("44444");
+    },
+  });
+};

@@ -37,4 +37,34 @@ export const authRouter = createTRPCRouter({
         });
       }
     }),
+
+  apiRequestWithHttpCookie: publicProcedure.mutation(async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL}products/access-token-test`,
+        {}, // Body can be empty if cookies are sent via headers
+        {
+          withCredentials: true, // Ensure cookies are included in the request
+        },
+      );
+
+      return {
+        data: response.data,
+      };
+    } catch (error: unknown) {
+      console.error(error, "======error in testAccessToken route");
+      if (axios.isAxiosError(error)) {
+        throw new TRPCError({
+          code:
+            error?.response?.status === 401 ? "UNAUTHORIZED" : "BAD_REQUEST",
+          message:
+            error?.response?.data?.message || "Failed to fetch access token.",
+        });
+      }
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Something went wrong in the access token test route.",
+      });
+    }
+  }),
 });
