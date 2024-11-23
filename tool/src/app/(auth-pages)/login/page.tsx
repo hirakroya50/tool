@@ -83,14 +83,34 @@ export default function LoginPage() {
 
   return (
     <div className={isDarkMode ? "dark" : ""}>
-      <button
-        className="m-4 rounded bg-blue-500 p-2 text-white"
-        onClick={() => setIsDarkMode(!isDarkMode)}
-      >
-        Toggle Dark Mode
-      </button>
       <div className="dark:bg-dark-background flex h-screen items-center justify-center bg-gray-100">
+        <button
+          className="absolute left-3 top-2 rounded bg-blue-500 p-2 text-white"
+          onClick={() => setIsDarkMode(!isDarkMode)}
+        >
+          Toggle Dark Mode
+        </button>
         <div className="dark:bg-dark-card w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
+          <p>1. role-based access control like Admin, User, Moderator</p>
+          <p>
+            2. multiple user sessions from different devices, terminate active
+            sessions log out from all devices.
+          </p>
+          <p>
+            {" "}
+            3. event-driven architecture - For example, use message queues
+            (RabbitMQ, Kafka, etc.) OTPs, verification emails, or triggering
+            post-login events.
+          </p>
+          <p>
+            4. IP and Location Tracking for Security - Log the IP address and
+            location (approximate) of every login attempt and notify users of
+            unusual login attempts.
+          </p>
+          <p>
+            5 Provide users with an option to enable or disable notifications
+            for logins from new devices or locations.
+          </p>
           <h2 className="dark:text-dark-textPrimary mb-6 text-center text-2xl font-bold text-gray-700">
             Login
           </h2>
