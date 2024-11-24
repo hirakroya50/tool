@@ -25,6 +25,10 @@ jobs:
         working-directory: tool # Specify the folder containing your package.json
         run: npm install
 
-      - name: Run build
-        working-directory: tool # Specify the folder containing your Next.js project
+      - name: Build the project
+        working-directory: tool
         run: npm run build
+        env: # Pass the required environment variables here
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXT_PUBLIC_AUTH_MICROSERVICE_URL: ${{ secrets.NEXT_PUBLIC_AUTH_MICROSERVICE_URL }}
+          NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL: ${{ secrets.NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL }}
