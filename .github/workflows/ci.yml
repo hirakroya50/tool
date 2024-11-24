@@ -21,11 +21,10 @@ jobs:
         with:
           node-version: "20" # Specify the Node.js version
 
-      - name: go to the folder
-        run: cd tool
-
       - name: Install dependencies
+        working-directory: tool # Specify the folder containing your package.json
         run: npm install
 
       - name: Run build
+        working-directory: tool # Specify the folder containing your Next.js project
         run: npm run build
