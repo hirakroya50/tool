@@ -21,9 +21,6 @@ jobs:
         with:
           node-version: "20" # Specify the Node.js version
 
-     - name: Navigate to Next.js project
-        working-directory: ./tool 
-
       - name: Install dependencies
         run: npm install
 
