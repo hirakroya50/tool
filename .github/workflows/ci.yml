@@ -1,0 +1,28 @@
+name: CI for Next.js
+
+on:
+  push:
+    branches:
+      - "**" # or your default branch
+  pull_request:
+    branches:
+      - "**" # or your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20" # Specify the Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
