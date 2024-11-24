@@ -91,26 +91,14 @@ export default function LoginPage() {
           Toggle Dark Mode
         </button>
         <div className="dark:bg-dark-card w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
-          <p>1. role-based access control like Admin, User, Moderator</p>
-          <p>
-            2. multiple user sessions from different devices, terminate active
-            sessions log out from all devices.
-          </p>
           <p>
             {" "}
             3. event-driven architecture - For example, use message queues
             (RabbitMQ, Kafka, etc.) OTPs, verification emails, or triggering
             post-login events.
           </p>
-          <p>
-            4. IP and Location Tracking for Security - Log the IP address and
-            location (approximate) of every login attempt and notify users of
-            unusual login attempts.
-          </p>
-          <p>
-            5 Provide users with an option to enable or disable notifications
-            for logins from new devices or locations.
-          </p>
+
+          <p>6. docker and ci/cd</p>
           <h2 className="dark:text-dark-textPrimary mb-6 text-center text-2xl font-bold text-gray-700">
             Login
           </h2>
