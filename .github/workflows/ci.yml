@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: "20" # Specify the Node.js version
 
+      - name: go to the folder
+        run: cd tool
+
       - name: Install dependencies
         run: npm install
 
