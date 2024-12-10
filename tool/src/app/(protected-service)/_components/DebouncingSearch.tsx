@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 interface SearchBarProps {
   placeholder?: string;
   debounceDelay?: number;
@@ -44,6 +45,7 @@ const DebouncingSearch: React.FC<SearchBarProps> = ({
     if (debouncedValue === "") return;
     if (debouncedValue) {
       console.log("API Call Triggered for:---------->", debouncedValue);
+      toast.success("throttle API call for: " + debouncedValue);
     }
   }, [debouncedValue]);
 
