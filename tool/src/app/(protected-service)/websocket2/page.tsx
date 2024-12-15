@@ -8,9 +8,9 @@ export default function WebSocketComponent2() {
 
   useEffect(() => {
     const newSocket = new WebSocket("ws://localhost:8080");
-    setSocket(newSocket);
     newSocket.onopen = () => {
       console.log("Connection established");
+      setSocket(newSocket);
     };
     newSocket.onmessage = (message) => {
       setMessages((priv) => [...priv, message?.data]);
@@ -18,9 +18,12 @@ export default function WebSocketComponent2() {
     newSocket.onclose = () => {
       console.log("connection closed");
     };
-    setSocket(newSocket);
     return () => newSocket.close();
   }, []);
+
+  if (!socket) {
+    <div>connecting to the server for websocket .....</div>;
+  }
 
   return (
     <div>
