@@ -26,7 +26,11 @@ const CREATE_USER_MUTATION = gql`
   }
 `;
 
-const SignUpByGraphQLServer = () => {
+const SignUpByGraphQLServer = ({
+  refetchUserList,
+}: {
+  refetchUserList: () => void;
+}) => {
   const [signUp, { data, loading, error }] = useMutation(CREATE_USER_MUTATION);
   const {
     register,
@@ -43,6 +47,7 @@ const SignUpByGraphQLServer = () => {
         variables: data,
       });
       console.log("Response:", response);
+      refetchUserList();
     } catch (error) {
       console.log("error is comming ..........", error);
     }
@@ -102,7 +107,7 @@ const SignUpByGraphQLServer = () => {
               type="submit"
               className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-card dark:hover:bg-dark-border"
             >
-              {loading ? "Loading..." : "Login"}
+              {loading ? "Loading..." : "Sign-up"}
             </button>
 
             {error && <p>{error.message}</p>}

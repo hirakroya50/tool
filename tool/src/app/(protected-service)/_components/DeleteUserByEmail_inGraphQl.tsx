@@ -7,7 +7,13 @@ const DELETE_USER_MUTATION = gql`
     deleteUser(email: $email)
   }
 `;
-const DeleteUserByEmail_inGraphQl = ({ email }: { email: string }) => {
+const DeleteUserByEmail_inGraphQl = ({
+  email,
+  refetchUserList,
+}: {
+  email: string;
+  refetchUserList: () => void;
+}) => {
   const [deleteUser, { data, loading, error }] =
     useMutation(DELETE_USER_MUTATION);
   console.log({ data, loading, error });
@@ -21,6 +27,7 @@ const DeleteUserByEmail_inGraphQl = ({ email }: { email: string }) => {
             try {
               await deleteUser({ variables: { email } });
               console.log("deleted sucessfully");
+              refetchUserList();
             } catch (error) {
               console.log("errorcomming", error);
             }

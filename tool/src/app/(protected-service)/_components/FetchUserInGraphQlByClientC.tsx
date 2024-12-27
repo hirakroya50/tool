@@ -25,29 +25,28 @@ type UsersQueryResponse = {
   }[];
 };
 
-const FetchUserInGraphQlByClientC = () => {
-  const { data, loading, refetch } = useQuery<UsersQueryResponse>(query);
-
-  async function getData() {
-    try {
-      console.log({ data });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    void getData();
-  }, []);
-
+const FetchUserInGraphQlByClientC = ({
+  data,
+  loading,
+  refetchUserList,
+}: {
+  data: UsersQueryResponse | undefined;
+  refetchUserList: () => void;
+  loading: boolean;
+}) => {
   if (loading) return <>Loading.......</>;
   return (
     <div>
-      <button onClick={() => refetch()}>clikkk</button>
       <div className="m-3 border border-blue-400 p-3">
         <p className="underline">All user from client component:</p>
         {data?.users?.map((item, i) => {
-          return <DeleteUserByEmail_inGraphQl key={i} email={item?.email} />;
+          return (
+            <DeleteUserByEmail_inGraphQl
+              key={i}
+              email={item?.email}
+              refetchUserList={refetchUserList}
+            />
+          );
         })}
       </div>
     </div>
