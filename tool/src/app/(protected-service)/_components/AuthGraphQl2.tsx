@@ -1,4 +1,3 @@
-// "use client";
 import React from "react";
 
 import { gql } from "@apollo/client";
@@ -39,7 +38,7 @@ const AuthGraphQl2 = async () => {
   return (
     <div>
       <div className="m-3 border border-blue-400 p-3">
-        All user :
+        <p className="underline">All user From Server component:</p>
         {data?.users?.map((item, i) => {
           return <div key={i}>{item?.email}</div>;
         })}

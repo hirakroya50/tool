@@ -1,12 +1,7 @@
 "use client";
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
-import {
-  type FieldErrors,
-  useForm,
-  UseFormRegister,
-  type SubmitHandler,
-} from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { FormInput } from "~/app/(auth-pages)/login/_components/FormInput";
 import { PasswordInput } from "~/app/(auth-pages)/login/_components/PasswordButton";
 import { type LoginFormInputs } from "~/types";
