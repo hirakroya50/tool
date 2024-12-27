@@ -1,8 +1,8 @@
 "use client";
-// import AuthGraphQlQueryByFetch from "../_components/AuthGraphQlQueryByFetch";
-// import AuthGraphQlQueryInServerComponent from "../_components/AuthGraphQlQueryInServerComponent";
-// import AuthGrphqlByClientComponent from "../_components/AuthGrphqlByClientComponent";
 import FetchUserInGraphQlByClientC from "../_components/FetchUserInGraphQlByClientC";
+import AuthGraphQlQueryByFetch from "../_components/AuthGraphQlQueryByFetch";
+import AuthGraphQlQueryInServerComponent from "../_components/AuthGraphQlQueryInServerComponent";
+import AuthGrphqlByClientComponent from "../_components/AuthGrphqlByClientComponent";
 import SignUpByGraphQLServer from "../_components/SignUpByGraphQLServer";
 import { gql, useQuery } from "@apollo/client";
 
@@ -38,6 +38,9 @@ const Page = () => {
         loading={loading}
         refetchUserList={refetch}
       />
+      {/* <AuthGraphQlQueryByFetch />
+      <AuthGraphQlQueryInServerComponent />
+      <AuthGrphqlByClientComponent /> */}
       <SignUpByGraphQLServer refetchUserList={refetch} />
     </div>
   );

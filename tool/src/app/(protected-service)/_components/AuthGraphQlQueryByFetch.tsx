@@ -12,12 +12,17 @@ type UsersQueryResponse = {
   };
 };
 const AuthGraphQlQueryByFetch = async () => {
-  const data: UsersQueryResponse = await fetch(
-    "http://localhost:3002/graphql",
-    {
-      method: "POST",
-      body: JSON.stringify({
-        query: `
+  const url = process.env.NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL_GRAPH_QL;
+
+  if (!url) {
+    console.error("GraphQL URL is not defined in environment variables.");
+    throw new Error("GraphQL URL is required but not defined.");
+  }
+
+  const data: UsersQueryResponse = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      query: `
       query {
         users {
           id
@@ -28,14 +33,13 @@ const AuthGraphQlQueryByFetch = async () => {
         }
       }
     `,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    }),
+    headers: {
+      "Content-Type": "application/json",
     },
-  ).then((res) => res.json());
+  }).then((res) => res.json());
 
-  // console.log({ dtata: data.data.users[0].email });
+  console.log({ data1: data.data.users });
   return (
     <div>
       {data.data.users.map((item, i) => {

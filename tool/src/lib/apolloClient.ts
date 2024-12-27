@@ -5,7 +5,7 @@ export const { getClient } = registerApolloClient(() => {
   return new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
-      uri: "http://localhost:3002/graphql",
+      uri: process.env.NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL_GRAPH_QL,
     }),
   });
 });

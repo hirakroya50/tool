@@ -12,7 +12,7 @@ import {
 
 function makeClient() {
   const httpLink = new HttpLink({
-    uri: "http://localhost:3002/graphql",
+    uri: process.env.NEXT_PUBLIC_B_LOGIC_MICROSERVICE_URL_GRAPH_QL,
   });
 
   return new NextSSRApolloClient({
