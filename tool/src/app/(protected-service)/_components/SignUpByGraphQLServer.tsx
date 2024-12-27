@@ -31,7 +31,7 @@ const SignUpByGraphQLServer = ({
 }: {
   refetchUserList: () => void;
 }) => {
-  const [signUp, { data, loading, error }] = useMutation(CREATE_USER_MUTATION);
+  const [signUp, { loading, error }] = useMutation(CREATE_USER_MUTATION);
   const {
     register,
     handleSubmit,
@@ -39,21 +39,15 @@ const SignUpByGraphQLServer = ({
   } = useForm<LoginFormInputs>(); // Pass the form type
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    // mutate(data);
-    console.log(data);
-
     try {
-      const response = await signUp({
+      await signUp({
         variables: data,
       });
-      console.log("Response:", response);
       refetchUserList();
     } catch (error) {
       console.log("error is comming ..........", error);
     }
   };
-
-  console.log({ data });
 
   return (
     <div>

@@ -1,19 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
-import { gql, useQuery } from "@apollo/client";
+import React from "react";
 import DeleteUserByEmail_inGraphQl from "./DeleteUserByEmail_inGraphQl";
-
-const query = gql`
-  query {
-    users {
-      id
-      email
-      username
-      createdAt
-      mobile
-    }
-  }
-`;
 
 type UsersQueryResponse = {
   users: {
