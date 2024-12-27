@@ -25,7 +25,7 @@ type UsersQueryResponse = {
   }[];
 };
 
-const AuthGraphQl2 = async () => {
+const AuthGraphQlQueryInServerComponent = async () => {
   const { data } = await getClient().query<UsersQueryResponse>({
     query,
     context: {
@@ -43,10 +43,8 @@ const AuthGraphQl2 = async () => {
           return <div key={i}>{item?.email}</div>;
         })}
       </div>
-
-      {/* <SignUpForm /> */}
     </div>
   );
 };
 
-export default AuthGraphQl2;
+export default AuthGraphQlQueryInServerComponent;

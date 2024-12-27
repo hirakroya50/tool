@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { getClient } from "~/lib/apolloClient";
 import DeleteUserByEmail_inGraphQl from "./DeleteUserByEmail_inGraphQl";
 
 const query = gql`
@@ -51,8 +50,6 @@ const FetchUserInGraphQlByClientC = () => {
           return <DeleteUserByEmail_inGraphQl key={i} email={item?.email} />;
         })}
       </div>
-
-      {/* <SignUpForm /> */}
     </div>
   );
 };

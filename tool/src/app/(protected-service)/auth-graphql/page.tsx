@@ -1,5 +1,5 @@
-import AuthGraphQl from "../_components/AuthGraphQl";
-import AuthGraphQl2 from "../_components/AuthGraphQl2";
+import AuthGraphQlQueryByFetch from "../_components/AuthGraphQlQueryByFetch";
+import AuthGraphQlQueryInServerComponent from "../_components/AuthGraphQlQueryInServerComponent";
 import AuthGrphqlByClientComponent from "../_components/AuthGrphqlByClientComponent";
 import FetchUserInGraphQlByClientC from "../_components/FetchUserInGraphQlByClientC";
 import SignUpByGraphQLServer from "../_components/SignUpByGraphQLServer";
@@ -7,7 +7,7 @@ import SignUpByGraphQLServer from "../_components/SignUpByGraphQLServer";
 const page = () => {
   return (
     <div>
-      <AuthGraphQl2 />
+      <AuthGraphQlQueryInServerComponent />
       <FetchUserInGraphQlByClientC />
       <SignUpByGraphQLServer />
     </div>
