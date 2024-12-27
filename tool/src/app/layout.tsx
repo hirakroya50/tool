@@ -5,6 +5,7 @@ import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Toaster } from "react-hot-toast";
+import { ApolloWrapper } from "~/lib/ apollo-provider";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -24,7 +25,9 @@ export default function RootLayout({
             duration: 2000,
           }}
         />
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          <ApolloWrapper>{children}</ApolloWrapper>
+        </TRPCReactProvider>
       </body>
     </html>
   );

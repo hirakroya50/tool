@@ -2,8 +2,8 @@ import { type FieldErrors, UseFormRegister } from "react-hook-form";
 import { LoginFormInputs } from "~/types";
 
 interface FormInputProps {
-  id: "email" | "password";
-  type: "email" | "password";
+  id: "email" | "password" | "username" | "mobile";
+  type: "email" | "password" | "text";
   label: string;
   register: UseFormRegister<LoginFormInputs>;
   errors: FieldErrors<LoginFormInputs>;
@@ -24,7 +24,7 @@ export const FormInput = ({
     <div className="mb-4">
       <label
         htmlFor={id}
-        className="dark:text-dark-textPrimary mb-2 block text-sm font-medium text-gray-700"
+        className="mb-2 block text-sm font-medium text-gray-700 dark:text-dark-textPrimary"
       >
         {label}
       </label>
@@ -33,7 +33,7 @@ export const FormInput = ({
         type={type}
         placeholder={placeholder}
         {...register(id, validation)}
-        className={`dark:bg-dark-card dark:text-dark-textPrimary w-full rounded-lg border bg-gray-100 px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 ${
+        className={`w-full rounded-lg border bg-gray-100 px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 dark:bg-dark-card dark:text-dark-textPrimary ${
           errors[id]
             ? "border-red-500 focus:ring-red-500"
             : "focus:ring-blue-500"
