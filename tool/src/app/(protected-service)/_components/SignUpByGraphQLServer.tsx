@@ -26,12 +26,25 @@ const CREATE_USER_MUTATION = gql`
   }
 `;
 
+const UPDATE_USER_MUTATION = gql`
+  mutation UpdateUser($id: String!, $username: String!, $mobile: String!) {
+    updateUser(username: $username, mobile: $mobile, id: $id) {
+      id
+      email
+      username
+      mobile
+    }
+  }
+`;
+
 const SignUpByGraphQLServer = ({
   refetchUserList,
 }: {
   refetchUserList: () => void;
 }) => {
   const [signUp, { loading, error }] = useMutation(CREATE_USER_MUTATION);
+  const [updateUser, { loading: loadingFroUpdate, error: errorForUpdate }] =
+    useMutation(UPDATE_USER_MUTATION);
   const {
     register,
     handleSubmit,
@@ -105,6 +118,27 @@ const SignUpByGraphQLServer = ({
             </button>
 
             {error && <p>{error.message}</p>}
+            {/* <button
+              type="button"
+              onClick={async () => {
+                try {
+                  console.log("uosara");
+                  await updateUser({
+                    variables: {
+                      id: "34",
+                      username: "u233331",
+                      mobile: "9002297620",
+                    },
+                  });
+                  console.log("working fine ----");
+                } catch (error) {
+                  console.log(error, "====error");
+                }
+              }}
+              className="mt-1 w-full rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-card dark:hover:bg-dark-border"
+            >
+              update
+            </button> */}
           </form>
         </div>
       </div>
