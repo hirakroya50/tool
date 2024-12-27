@@ -2,6 +2,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FormInput } from "~/app/(auth-pages)/login/_components/FormInput";
 import { PasswordInput } from "~/app/(auth-pages)/login/_components/PasswordButton";
 import { type LoginFormInputs } from "~/types";
@@ -56,9 +57,15 @@ const SignUpByGraphQLServer = ({
       await signUp({
         variables: data,
       });
+      toast.success("login successfully");
       refetchUserList();
     } catch (error) {
       console.log("error is comming ..........", error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("login error: Unknown error occurred");
+      }
     }
   };
 
