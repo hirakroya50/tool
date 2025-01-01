@@ -1,9 +1,9 @@
 "use client";
-import FetchUserInGraphQlByClientC from "../_components/FetchUserInGraphQlByClientC";
-import AuthGraphQlQueryByFetch from "../_components/AuthGraphQlQueryByFetch";
-import AuthGraphQlQueryInServerComponent from "../_components/AuthGraphQlQueryInServerComponent";
-import AuthGrphqlByClientComponent from "../_components/AuthGrphqlByClientComponent";
-import SignUpByGraphQLServer from "../_components/SignUpByGraphQLServer";
+import FetchUserInGraphQlByClientC from "../_components/auth-graphqlComonents/FetchUserInGraphQlByClientC";
+import AuthGraphQlQueryByFetch from "../_components/auth-graphqlComonents/AuthGraphQlQueryByFetch";
+import AuthGraphQlQueryInServerComponent from "../_components/auth-graphqlComonents/AuthGraphQlQueryInServerComponent";
+import AuthGrphqlByClientComponent from "../_components/auth-graphqlComonents/AuthGrphqlByClientComponent";
+import SignUpByGraphQLServer from "../_components/auth-graphqlComonents/SignUpByGraphQLServer";
 import { gql, useQuery } from "@apollo/client";
 
 const query = gql`

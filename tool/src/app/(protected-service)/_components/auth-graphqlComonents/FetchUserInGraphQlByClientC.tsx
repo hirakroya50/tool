@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import DeleteUserByEmail_inGraphQl from "./DeleteUserByEmail_inGraphQl";
+import DeleteUserByEmail_inGraphQl from "../DeleteUserByEmail_inGraphQl";
 
 type UsersQueryResponse = {
   users: {
