@@ -1,153 +1,83 @@
 "use client";
-import { gql, useMutation } from "@apollo/client";
 import React from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 import { FormInput } from "~/app/(auth-pages)/login/_components/FormInput";
 import { PasswordInput } from "~/app/(auth-pages)/login/_components/PasswordButton";
+import { useSignUpOrCreateUser } from "~/hooks/auth-graphqlHooks/useSignUpOrCreateUser";
 import { type LoginFormInputs } from "~/types";
-const CREATE_USER_MUTATION = gql`
-  mutation SignUp(
-    $email: String!
-    $username: String!
-    $mobile: String!
-    $password: String!
-  ) {
-    signUp(
-      email: $email
-      username: $username
-      mobile: $mobile
-      password: $password
-    ) {
-      id
-      email
-      username
-      createdAt
-    }
-  }
-`;
-
-const UPDATE_USER_MUTATION = gql`
-  mutation UpdateUser($id: String!, $username: String!, $mobile: String!) {
-    updateUser(username: $username, mobile: $mobile, id: $id) {
-      id
-      email
-      username
-      mobile
-    }
-  }
-`;
+import { UpdateUser } from "./UpdateUser";
 
 const SignUpByGraphQLServer = ({
   refetchUserList,
 }: {
   refetchUserList: () => void;
 }) => {
-  const [signUp, { loading, error }] = useMutation(CREATE_USER_MUTATION);
-  const [updateUser, { loading: loadingFroUpdate, error: errorForUpdate }] =
-    useMutation(UPDATE_USER_MUTATION);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>(); // Pass the form type
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    try {
-      await signUp({
-        variables: data,
-      });
-      toast.success("login successfully");
-      refetchUserList();
-    } catch (error) {
-      console.log("error is comming ..........", error);
-      if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("login error: Unknown error occurred");
-      }
-    }
-  };
+  const { error, loading, onSubmit } = useSignUpOrCreateUser({
+    refetchUserList,
+  });
 
   return (
-    <div>
-      <div className="my-3 flex items-center justify-center bg-gray-100 dark:bg-dark-background">
-        <div className="my-3 w-full max-w-md rounded-lg bg-white p-8 shadow-lg dark:bg-dark-card">
+    <div className="my-3 flex items-center justify-center bg-gray-100 dark:bg-dark-background">
+      <div className="my-3 flex w-full items-center justify-center gap-2 rounded-lg bg-white p-6 shadow-lg dark:bg-dark-card">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-[50%]" noValidate>
           <h2 className="mb-6 text-center text-2xl font-bold text-gray-700 dark:text-dark-textPrimary">
             SignUp
           </h2>
+          <FormInput
+            errors={errors}
+            id="email"
+            label="Email"
+            register={register}
+            type="email"
+            placeholder="user email"
+            validation={{
+              required: "Email is required",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Please enter a valid email address",
+              },
+            }}
+          />
+          <FormInput
+            errors={errors}
+            id="username"
+            label="username"
+            register={register}
+            type="text"
+            placeholder="username"
+            validation={{
+              required: "username is required",
+            }}
+          />
+          <FormInput
+            errors={errors}
+            id="mobile"
+            label="Mobile"
+            register={register}
+            type="text"
+            placeholder="mobile email"
+            validation={{
+              required: "mobile is required",
+            }}
+          />
 
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <FormInput
-              errors={errors}
-              id="email"
-              label="Email"
-              register={register}
-              type="email"
-              placeholder="user email"
-              validation={{
-                required: "Email is required",
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Please enter a valid email address",
-                },
-              }}
-            />
-            <FormInput
-              errors={errors}
-              id="username"
-              label="username"
-              register={register}
-              type="text"
-              placeholder="username"
-              validation={{
-                required: "username is required",
-              }}
-            />
-            <FormInput
-              errors={errors}
-              id="mobile"
-              label="Mobile"
-              register={register}
-              type="text"
-              placeholder="mobile email"
-              validation={{
-                required: "mobile is required",
-              }}
-            />
+          <PasswordInput errors={errors} register={register} />
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-card dark:hover:bg-dark-border"
+          >
+            {loading ? "Loading..." : "Sign-up"}
+          </button>
 
-            <PasswordInput errors={errors} register={register} />
-            <button
-              type="submit"
-              className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-card dark:hover:bg-dark-border"
-            >
-              {loading ? "Loading..." : "Sign-up"}
-            </button>
-
-            {error && <p>{error.message}</p>}
-            {/* <button
-              type="button"
-              onClick={async () => {
-                try {
-                  console.log("uosara");
-                  await updateUser({
-                    variables: {
-                      id: "34",
-                      username: "u233331",
-                      mobile: "9002297620",
-                    },
-                  });
-                  console.log("working fine ----");
-                } catch (error) {
-                  console.log(error, "====error");
-                }
-              }}
-              className="mt-1 w-full rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-card dark:hover:bg-dark-border"
-            >
-              update
-            </button> */}
-          </form>
-        </div>
+          {error && <p>{error.message}</p>}
+        </form>
+        <UpdateUser refetchUserList={refetchUserList} />
       </div>
     </div>
   );

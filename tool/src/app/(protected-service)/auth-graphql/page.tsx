@@ -4,33 +4,10 @@ import AuthGraphQlQueryByFetch from "../_components/auth-graphqlComonents/AuthGr
 import AuthGraphQlQueryInServerComponent from "../_components/auth-graphqlComonents/AuthGraphQlQueryInServerComponent";
 import AuthGrphqlByClientComponent from "../_components/auth-graphqlComonents/AuthGrphqlByClientComponent";
 import SignUpByGraphQLServer from "../_components/auth-graphqlComonents/SignUpByGraphQLServer";
-import { gql, useQuery } from "@apollo/client";
-
-const query = gql`
-  query {
-    users {
-      id
-      email
-      username
-      createdAt
-      mobile
-    }
-  }
-`;
-
-type UsersQueryResponse = {
-  users: {
-    id: string;
-    email: string;
-    username: string;
-    createdAt: string;
-    mobile: string;
-  }[];
-};
+import { useGetAllUser } from "~/hooks/auth-graphqlHooks/useGetAllUser";
 
 const Page = () => {
-  const { data, loading, refetch } = useQuery<UsersQueryResponse>(query);
-
+  const { data, loading, refetch } = useGetAllUser();
   return (
     <div>
       <FetchUserInGraphQlByClientC

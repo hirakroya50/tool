@@ -1,5 +1,5 @@
-import { type FieldErrors, UseFormRegister } from "react-hook-form";
-import { LoginFormInputs } from "~/types";
+import { type FieldErrors, type UseFormRegister } from "react-hook-form";
+import { type LoginFormInputs } from "~/types";
 
 interface FormInputProps {
   id: "email" | "password" | "username" | "mobile";

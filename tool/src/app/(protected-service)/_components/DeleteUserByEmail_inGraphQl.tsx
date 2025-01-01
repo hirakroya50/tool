@@ -1,45 +1,27 @@
 "use client";
-
 import React from "react";
-import { gql, useMutation } from "@apollo/client";
-import toast from "react-hot-toast";
-const DELETE_USER_MUTATION = gql`
-  mutation DeleteUser($email: String!) {
-    deleteUser(email: $email)
-  }
-`;
+import { useDeleteUserByEmail_inGraphQl } from "~/hooks/auth-graphqlHooks/useDeleteUserByEmail_inGraphQl";
+
 const DeleteUserByEmail_inGraphQl = ({
   email,
   refetchUserList,
+  id,
+  username,
 }: {
   email: string;
   refetchUserList: () => void;
+  id: string | number;
+  username: string;
 }) => {
-  const [deleteUser, { data, loading, error }] =
-    useMutation(DELETE_USER_MUTATION);
-  console.log({ data, loading, error });
+  const { handelDelete, loading } = useDeleteUserByEmail_inGraphQl({
+    email,
+    refetchUserList,
+  });
 
-  const handelDelete = async () => {
-    try {
-      await deleteUser({ variables: { email } });
-      console.log("deleted sucessfully");
-      toast.success("delete successfully");
-
-      refetchUserList();
-    } catch (error) {
-      console.log("errorcomming", error);
-      if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("login error: Unknown error occurred");
-      }
-    }
-  };
   return (
     <>
       <div className="flex gap-1">
-        {email}
-
+        id: {id} -- username: {username} -- {email}
         <button
           onClick={handelDelete}
           className="rounded-[10px] bg-green-800 p-[1px] px-1 text-[8px] text-white"

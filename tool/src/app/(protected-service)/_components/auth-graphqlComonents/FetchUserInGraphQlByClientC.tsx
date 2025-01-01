@@ -32,6 +32,8 @@ const FetchUserInGraphQlByClientC = ({
               key={i}
               email={item?.email}
               refetchUserList={refetchUserList}
+              id={item.id}
+              username={item.username}
             />
           );
         })}
