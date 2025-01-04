@@ -1,7 +1,7 @@
 import React from "react";
-import TrpcTest from "../_components/trpcTest";
-import DebouncingSearch from "../_components/DebouncingSearch";
-import ThrottlingSearch from "../_components/ThrottlingSearch";
+import TrpcTest from "./_components/trpcTest";
+import DebouncingSearch from "./_components/DebouncingSearch";
+import ThrottlingSearch from "./_components/ThrottlingSearch";
 
 const page = () => {
   return (
