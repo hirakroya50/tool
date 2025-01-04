@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useDeleteUserByEmail_inGraphQl } from "~/hooks/auth-graphqlHooks/useDeleteUserByEmail_inGraphQl";
+import { useDeleteUserByEmail_inGraphQl } from "~/hooks/signup-graphqlHooks/useDeleteUserByEmail_inGraphQl";
 
 const DeleteUserByEmail_inGraphQl = ({
   email,

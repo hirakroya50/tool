@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useUpdateUser } from "~/hooks/auth-graphqlHooks/useUpdateUser";
+import { useUpdateUser } from "~/hooks/signup-graphqlHooks/useUpdateUser";
 
 type UpdateUserFormInputs = {
   id: string;

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useWebSocket } from "~/hooks/useWebSocket";
+import { useWebSocket } from "~/hooks/loginHook/useWebSocket";
 // import { useWebSocket } from '../hooks/useWebSocket';
 
 const WebSocketComponent: React.FC = () => {

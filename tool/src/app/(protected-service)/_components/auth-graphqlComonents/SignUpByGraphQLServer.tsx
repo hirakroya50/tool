@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { FormInput } from "~/app/(auth-pages)/login/_components/FormInput";
 import { PasswordInput } from "~/app/(auth-pages)/login/_components/PasswordButton";
-import { useSignUpOrCreateUser } from "~/hooks/auth-graphqlHooks/useSignUpOrCreateUser";
+import { useSignUpOrCreateUser } from "~/hooks/signup-graphqlHooks/useSignUpOrCreateUser";
 import { type LoginFormInputs } from "~/types";
 import { UpdateUser } from "./UpdateUser";
 
