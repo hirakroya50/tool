@@ -1,25 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useWebSocket2 } from "~/hooks/websocket2Hook/useWebSocket2";
 
 export default function WebSocketComponent2() {
-  const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [messages, setMessages] = useState<string[]>([]);
   const [userInput, setUserInput] = useState("");
-
-  useEffect(() => {
-    const newSocket = new WebSocket("ws://localhost:8080");
-    newSocket.onopen = () => {
-      console.log("Connection established");
-      setSocket(newSocket);
-    };
-    newSocket.onmessage = (message) => {
-      setMessages((priv) => [...priv, message?.data]);
-    };
-    newSocket.onclose = () => {
-      console.log("connection closed");
-    };
-    return () => newSocket.close();
-  }, []);
+  const { messages, socket } = useWebSocket2(
+    process?.env?.NEXT_PUBLIC_WEBSOCKET_CHAT_URL ?? "",
+  );
 
   if (!socket) {
     <div>connecting to the server for websocket .....</div>;

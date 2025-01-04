@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
-import { useWebSocket } from "~/hooks/loginHook/useWebSocket";
+import { useWebSocket } from "~/hooks/websocketHook/useWebSocket";
 // import { useWebSocket } from '../hooks/useWebSocket';
 
 const WebSocketComponent: React.FC = () => {
-  const { messages, sendMessage } = useWebSocket("ws://localhost:8080");
+  const { messages, sendMessage } = useWebSocket(
+    process?.env?.NEXT_PUBLIC_WEBSOCKET_CHAT_URL ?? "",
+  );
   const [input, setInput] = useState<string>("");
 
   const handleSend = () => {
@@ -15,45 +17,28 @@ const WebSocketComponent: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>WebSocket Chat</h1>
-      <div
-        style={{
-          border: "1px solid #ccc",
-          padding: "10px",
-          height: "200px",
-          overflowY: "auto",
-          marginBottom: "10px",
-        }}
-      >
+    <div className="p-5">
+      <h1 className="text-xl font-semibold">WebSocket Chat</h1>
+      <div className="mb-2.5 h-48 overflow-y-auto border border-gray-300 p-2.5">
         {messages.map((msg, index) => (
           <p key={index}>{msg}</p>
         ))}
       </div>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Type a message..."
-        style={{
-          padding: "8px",
-          borderRadius: "4px",
-          border: "1px solid #ccc",
-          marginRight: "10px",
-        }}
-      />
-      <button
-        onClick={handleSend}
-        style={{
-          padding: "8px 12px",
-          border: "none",
-          background: "blue",
-          color: "white",
-          borderRadius: "4px",
-        }}
-      >
-        Send
-      </button>
+      <div className="flex items-center space-x-2">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+          className="rounded border border-gray-300 p-2"
+        />
+        <button
+          onClick={handleSend}
+          className="rounded bg-blue-500 px-3 py-2 text-white"
+        >
+          Send
+        </button>
+      </div>
     </div>
   );
 };
