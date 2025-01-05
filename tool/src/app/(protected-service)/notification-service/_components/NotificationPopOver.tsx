@@ -21,6 +21,7 @@ const NotificationPopOver = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent align="end" side="bottom">
+          <button>close</button>
           <div className="">Notification</div>
           <NotificationC />
         </PopoverContent>
