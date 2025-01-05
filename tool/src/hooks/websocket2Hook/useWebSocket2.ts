@@ -1,15 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-
-interface WebSocketMessage {
-  data: string;
-}
+import { useEffect, useState } from "react";
 
 export const useWebSocket2 = (url: string) => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [messages, setMessages] = useState<string[]>([]);
 
   useEffect(() => {
-    const newSocket = new WebSocket("ws://localhost:8080");
+    const newSocket = new WebSocket(url);
     newSocket.onopen = () => {
       console.log("Connection established");
       setSocket(newSocket);
