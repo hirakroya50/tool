@@ -39,7 +39,6 @@ export default function LoginPage() {
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     const response = await login(data);
     if (response) {
-      console.log("Login successful:", response.data);
       toast.success("login successfully");
     }
     if (errorLogin !== null) {
@@ -49,7 +48,7 @@ export default function LoginPage() {
 
   const handelLogout = async () => {
     const res = await logout();
-    console.log("LOGOUT------", res);
+    toast.success("logout successfully");
   };
 
   const [isDarkMode, setIsDarkMode] = useState(false);

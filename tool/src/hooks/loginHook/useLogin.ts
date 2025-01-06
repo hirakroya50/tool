@@ -44,7 +44,6 @@ export const useLogin = (): UseLoginResponse => {
           withCredentials: true,
         },
       );
-      console.log("Login successful:", response.data);
       return response;
     } catch (err: unknown) {
       if (err instanceof Error) {

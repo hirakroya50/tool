@@ -20,8 +20,6 @@ const PostDataOrTrigger = () => {
     const res = await postData(formData);
     // reset();
     setResponse(res);
-    console.log({ res, data: res?.data });
-    console.log({ formData });
   };
 
   return (

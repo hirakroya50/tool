@@ -34,7 +34,6 @@ const AuthGraphQlQueryInServerComponent = async () => {
       },
     },
   });
-  console.log({ data });
   return (
     <div>
       <div className="m-3 border border-blue-400 p-3">

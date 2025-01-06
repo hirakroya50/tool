@@ -8,7 +8,6 @@ const NotificationC = () => {
   const websocketUrl = "ws://localhost:8081";
   const { messages }: NotificationWebSocketMessage =
     useNotificationByPubSun(websocketUrl);
-  console.log(messages);
   return (
     <div className="flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md rounded-lg bg-white shadow-md">

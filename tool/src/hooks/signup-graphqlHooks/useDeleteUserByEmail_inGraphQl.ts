@@ -15,12 +15,10 @@ export const useDeleteUserByEmail_inGraphQl = ({
 }) => {
   const [deleteUser, { data, loading, error }] =
     useMutation(DELETE_USER_MUTATION);
-  console.log({ data, loading, error });
 
   const handelDelete = async () => {
     try {
       await deleteUser({ variables: { email } });
-      console.log("deleted sucessfully");
       toast.success("delete successfully");
 
       refetchUserList();

@@ -13,7 +13,6 @@ const useNotificationByPubSun = (url: string): NotificationWebSocketMessage => {
     };
 
     socket.onmessage = (message) => {
-      console.log({ message });
       try {
         setMessages((prevMessages) => [...prevMessages, message.data]);
       } catch (error) {

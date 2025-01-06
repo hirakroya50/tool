@@ -1,10 +1,7 @@
 // hooks/usePostData.js
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { useState } from "react";
 
-interface PostDataInput {
-  data: string;
-}
 const usePostDataOrTrigger = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -12,11 +9,9 @@ const usePostDataOrTrigger = () => {
   //   const [response, setResponse] = useState();
 
   const postData = async ({ data }: { data: string }) => {
-    console.log({ data });
     setLoading(true);
     setError(null);
     try {
-      console.log(process.env.NEXT_PUBLIC_AUTH_MICROSERVICE_URL);
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_AUTH_MICROSERVICE_URL}redis/lpush-pub-sub`,
         {
@@ -31,8 +26,6 @@ const usePostDataOrTrigger = () => {
       );
 
       setIsError(false);
-      //   setResponse(res);
-      return res;
       return res;
     } catch (err) {
       setIsError(true);

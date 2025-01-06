@@ -27,7 +27,6 @@ type UsersQueryResponse = {
 
 const AuthGrphqlByClientComponent = () => {
   const { data } = useSuspenseQuery<UsersQueryResponse>(query);
-  console.log({ dataformserver: data });
   return (
     <div>
       {data?.users?.map((item, i) => {

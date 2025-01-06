@@ -23,7 +23,6 @@ export const UpdateUser = ({
   });
 
   const onSubmit = async (data: UpdateUserFormInputs) => {
-    console.log({ data });
     await handelUpdate(data);
   };
 

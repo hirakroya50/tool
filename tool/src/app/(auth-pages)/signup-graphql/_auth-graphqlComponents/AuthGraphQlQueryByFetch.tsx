@@ -39,7 +39,6 @@ const AuthGraphQlQueryByFetch = async () => {
     },
   }).then((res) => res.json());
 
-  console.log({ data1: data.data.users });
   return (
     <div>
       {data.data.users.map((item, i) => {

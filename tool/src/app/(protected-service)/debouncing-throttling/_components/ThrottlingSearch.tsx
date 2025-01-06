@@ -30,7 +30,6 @@ const ThrottlingSearch: React.FC<SearchBarProps> = ({
   const apiCall = (searchTerm: string) => {
     if (searchTerm === "") return;
 
-    console.log("API Call: Searching for" + `${searchTerm}`);
     toast.success("throttle API call for: " + searchTerm);
   };
 

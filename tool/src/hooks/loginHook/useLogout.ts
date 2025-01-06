@@ -23,7 +23,6 @@ export const useLogout = (): UseLogoutResponse => {
           withCredentials: true,
         },
       );
-      console.log("Logout successful:", response);
       // PAINDING
       //REDIRECT TO THE LOGIN PAGE
       return response?.data;
