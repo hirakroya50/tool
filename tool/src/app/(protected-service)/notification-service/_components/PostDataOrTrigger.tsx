@@ -16,18 +16,20 @@ const PostDataOrTrigger = () => {
   const [response, setResponse] = useState();
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
-    // const response = await postData(formData);
+    const response = await postData(formData);
     // reset();
     // setResponse(response);
     console.log({ formData });
   };
-
+  const handleButtonClick = () => {
+    console.log("");
+  };
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold">
-            Post Data ----
+            Post Data
           </CardTitle>
         </CardHeader>
         <CardContent>
