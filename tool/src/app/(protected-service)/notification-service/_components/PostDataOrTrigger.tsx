@@ -5,6 +5,7 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import usePostDataOrTrigger from "~/hooks/notificationHook/usePostDataOrTrigger";
+import type { AxiosResponse } from "axios";
 
 interface FormData {
   data: string;
@@ -13,23 +14,22 @@ interface FormData {
 const PostDataOrTrigger = () => {
   const { register, handleSubmit, reset } = useForm<FormData>();
   const { postData, loading, error } = usePostDataOrTrigger();
-  const [response, setResponse] = useState();
+  const [response, setResponse] = useState<AxiosResponse | undefined>();
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
-    const response = await postData(formData);
+    const res = await postData(formData);
     // reset();
-    // setResponse(response);
+    setResponse(res);
+    console.log({ res, data: res?.data });
     console.log({ formData });
   };
-  const handleButtonClick = () => {
-    console.log("");
-  };
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
+    <div className="flex min-h-screen grow flex-col items-center justify-center bg-gray-100">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold">
-            Post Data
+            Do Some Costly oration and get the nonfiction
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -55,7 +55,8 @@ const PostDataOrTrigger = () => {
           {error && <p className="mt-4 text-red-500">{error.message}</p>}
           {response && (
             <div className="mt-4 rounded bg-green-100 p-2 text-green-800">
-              <strong>Response:</strong> {JSON.stringify(response)}
+              <strong>Response:</strong>{" "}
+              {JSON.stringify(response?.data?.status)}
             </div>
           )}
         </CardContent>

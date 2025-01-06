@@ -16,7 +16,10 @@ const NotificationPopOver = () => {
     setOpen(true); // Ensure the popover opens when the button is clicked
   };
   return (
-    <div className="fixed right-32 top-4">
+    <div
+
+    // className="fixed right-32 top-4"
+    >
       {/* <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant="outline" onClick={handleButtonClick}>
@@ -27,7 +30,6 @@ const NotificationPopOver = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent align="end" side="bottom"> */}
-      <div className="">Notification</div>
       <NotificationC />
       {/*
         </PopoverContent>
