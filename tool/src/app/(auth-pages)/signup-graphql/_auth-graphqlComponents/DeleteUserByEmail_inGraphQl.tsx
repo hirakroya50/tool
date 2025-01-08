@@ -7,11 +7,13 @@ const DeleteUserByEmail_inGraphQl = ({
   refetchUserList,
   id,
   username,
+  mobile,
 }: {
   email: string;
   refetchUserList: () => void;
   id: string | number;
   username: string;
+  mobile: string;
 }) => {
   const { handelDelete, loading } = useDeleteUserByEmail_inGraphQl({
     email,
@@ -19,17 +21,31 @@ const DeleteUserByEmail_inGraphQl = ({
   });
 
   return (
-    <>
-      <div className="flex gap-1">
-        id: {id} -- username: {username} -- {email}
-        <button
-          onClick={handelDelete}
-          className="rounded-[10px] bg-green-800 p-[1px] px-1 text-[8px] text-white"
-        >
-          {loading ? "Loading..." : "Delete"}
-        </button>
+    <div className="mb-1 flex items-center justify-between rounded-lg border p-2 pr-4 shadow-sm">
+      <div className="flex flex-col text-sm text-gray-700">
+        <span>
+          <strong>ID:</strong> {id}
+        </span>
+        <span>
+          <strong>Username:</strong> {username}
+        </span>
+        <span>
+          <strong>Email:</strong> {email}
+        </span>
+        <span>
+          <strong>Mobile:</strong> {mobile}
+        </span>
       </div>
-    </>
+      <button
+        onClick={handelDelete}
+        className={`rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 ${
+          loading ? "cursor-not-allowed opacity-70" : ""
+        }`}
+        disabled={loading}
+      >
+        {loading ? "Deleting..." : "Delete"}
+      </button>
+    </div>
   );
 };
 
