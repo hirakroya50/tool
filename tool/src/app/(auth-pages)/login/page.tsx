@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   type FieldErrors,
   useForm,
@@ -21,7 +20,7 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputs>(); // Pass the form type
+  } = useForm<LoginFormInputs>();
 
   const { error: errorLogin, isLoading: loginLoading, login } = useLogin();
   const {
@@ -47,21 +46,13 @@ export default function LoginPage() {
   };
 
   const handelLogout = async () => {
-    const res = await logout();
+    await logout();
     toast.success("logout successfully");
   };
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
   return (
-    <div className={isDarkMode ? "dark" : ""}>
+    <div>
       <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-dark-background">
-        <button
-          className="absolute left-3 top-2 rounded bg-blue-500 p-2 text-white"
-          onClick={() => setIsDarkMode(!isDarkMode)}
-        >
-          Toggle Dark Mode
-        </button>
         <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg dark:bg-dark-card">
           <h2 className="mb-6 text-center text-2xl font-bold text-gray-700 dark:text-dark-textPrimary">
             Login
@@ -104,6 +95,7 @@ export default function LoginPage() {
             errorLogout={errorLogout}
           />
         </div>
+        <About />
       </div>
     </div>
   );
@@ -149,6 +141,30 @@ const ExtraButtonForTest = ({
         {isLoadingLogout ? "loading....." : "Logout"}
       </button>
       {errorLogout && <p>{errorLogout}</p>}
+    </div>
+  );
+};
+
+const About = () => {
+  return (
+    <div className="w-[40%] p-3">
+      Implemented Login and Signup Functionality with React and NestJS Developed
+      <ol className="list-disc space-y-3 p-5 pl-6 text-gray-800">
+        {[
+          "Developed a user authentication system using React and NestJS, integrating form handling with react-hook-form and asynchronous API calls for login and signup processes.",
+          "Implemented the login functionality with secure token handling using cookies and error management via custom hooks (useLogin and useAccessTokenTest).",
+          "Utilized React components (FormInput, PasswordInput) for seamless user input validation and feedback using toast notifications.",
+          "Integrated a signup process in the NestJS backend, ensuring unique user registration by checking for existing email, username, or mobile conflicts.",
+          "Ensured secure password storage using hashing and implemented detailed error handling for a smooth user experience.",
+          "Employed HTTP status codes and robust API responses for effective communication between the frontend and backend.",
+        ].map((item, i) => {
+          return (
+            <li key={i} className="text-xs">
+              {item}
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 };

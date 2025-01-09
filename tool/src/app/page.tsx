@@ -36,12 +36,11 @@ export default async function Home() {
               { href: "/signup-graphql", label: "Signup with GraphQL" },
               { href: "/s3", label: "AWS S3 CRUD Operations" },
               {
-                href: "/debouncing-throttdivng",
-                label: "Debouncing and Throttdivng",
+                href: "/debouncing-throttling",
+                label: "Debouncing and Throttling",
               },
               { href: "/notification-service", label: "Notification Service" },
               { href: "/websocket", label: "WebSocket Chat" },
-              { href: "/websocket2", label: "WebSocket Chat (v2)" },
             ].map((item, index) => (
               <Link
                 href={item.href}

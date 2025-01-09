@@ -21,9 +21,9 @@ const FetchUserInGraphQlByClientC = ({
   refetchUserList: () => void;
   loading: boolean;
 }) => {
-  if (loading) return <div className="grow">Loading all users list...</div>;
+  if (loading) return <>Loading all users list...</>;
   return (
-    <div className="grow rounded-2xl border bg-white p-4 py-10 shadow">
+    <>
       <p className="pb-3 text-center font-sans text-xl underline">
         All user from client component:
       </p>
@@ -44,7 +44,7 @@ const FetchUserInGraphQlByClientC = ({
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 

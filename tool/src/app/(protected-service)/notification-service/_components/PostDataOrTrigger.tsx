@@ -6,6 +6,7 @@ import { Input } from "~/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import usePostDataOrTrigger from "~/hooks/notificationHook/usePostDataOrTrigger";
 import type { AxiosResponse } from "axios";
+import Image from "next/image";
 
 interface FormData {
   data: string;
@@ -23,12 +24,30 @@ const PostDataOrTrigger = () => {
   };
 
   return (
-    <div className="flex min-h-screen grow flex-col items-center justify-center bg-gray-100">
+    <div className="flex min-h-screen grow items-center justify-center bg-gray-100">
+      <div className="m-2 w-[50vw] p-2">
+        <p className="pb-2 underline">Pub sub architecture</p>
+        <Image
+          src={"/pubsub.png"}
+          alt="pubsub"
+          width={1000}
+          height={1000}
+          className="h-full w-full"
+        />
+      </div>
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold">
             Do Some Costly oration and get the nonfiction
           </CardTitle>
+          <p className="text-xs italic">
+            About: This system implements a pub-sub model where data from the
+            browser request is sent to the auth microservice. From there, the
+            data is placed in a queue, which is consumed by a worker. The worker
+            subscribes to a Redis pub-sub, and the backend WebSocket subscribes
+            to the same pub-sub. This allows notifications to be pushed from the
+            backend to the browser in real-time.
+          </p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
