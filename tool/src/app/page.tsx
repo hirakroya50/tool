@@ -41,6 +41,7 @@ export default async function Home() {
               },
               { href: "/notification-service", label: "Notification Service" },
               { href: "/websocket", label: "WebSocket Chat" },
+              { href: "/serverless", label: "serverless backend" },
             ].map((item, index) => (
               <Link
                 href={item.href}

@@ -18,7 +18,7 @@ const PostManager: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [newPostName, setNewPostName] = useState<string>("");
 
-  const API_URL = "http://localhost:65168";
+  const API_URL = process.env.NEXT_PUBLIC_SERVERLESS_BACKEND;
 
   // Fetch all posts
   const fetchPosts = async () => {
@@ -96,46 +96,62 @@ const PostManager: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <h1>Post Manager</h1>
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="mb-4 text-center text-2xl font-bold">Post Manager</h1>
+      {loading && <p className="text-center text-blue-500">Loading...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
 
       {/* Create New Post */}
-      <div>
-        <h2>Create Post</h2>
-        <input
-          type="text"
-          value={newPostName}
-          onChange={(e) => setNewPostName(e.target.value)}
-          placeholder="Post name"
-          className="border"
-        />
-        <button onClick={createPost}>Create</button>
+      <div className="mb-6 rounded bg-white p-4 shadow">
+        <h2 className="mb-4 text-xl font-semibold">Create Post</h2>
+        <div className="flex items-center gap-4">
+          <input
+            type="text"
+            value={newPostName}
+            onChange={(e) => setNewPostName(e.target.value)}
+            placeholder="Post name"
+            className="flex-1 rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={createPost}
+            className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+          >
+            Create
+          </button>
+        </div>
       </div>
 
       {/* Display Posts */}
-      <div>
-        <h2>Posts</h2>
-        {posts.length === 0 && <p>No posts available.</p>}
+      <div className="h-[calc(100vh-15rem)] overflow-auto rounded border border-red-600 bg-white p-4 shadow">
+        <h2 className="mb-4 text-xl font-semibold">
+          Total Posts: {posts?.length}{" "}
+        </h2>
+        {posts.length === 0 && (
+          <p className="text-gray-500">No posts available.</p>
+        )}
         {posts.map((post) => (
-          <div key={post.id} style={{ marginBottom: "1rem" }}>
+          <div key={post.id} className="border-b border-gray-200 py-4">
             <p>
               <strong>ID:</strong> {post.id}
             </p>
             <p>
               <strong>Name:</strong> {post.name}
             </p>
-
             <p>
               <strong>Updated At:</strong>{" "}
               {new Date(post.updatedAt).toLocaleString()}
             </p>
-            <div>
-              <button onClick={() => updatePost(Number(post.id), newPostName)}>
+            <div className="mt-2 flex gap-2">
+              <button
+                onClick={() => updatePost(Number(post.id), newPostName)}
+                className="rounded bg-green-500 px-3 py-1 text-white hover:bg-green-600"
+              >
                 Update
               </button>
-              <button onClick={() => deletePost(Number(post.id))}>
+              <button
+                onClick={() => deletePost(Number(post.id))}
+                className="rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600"
+              >
                 Delete
               </button>
             </div>
