@@ -1,5 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
+
+import { useAtom } from "jotai";
+import { userLoginStatus } from "~/atom";
 
 interface UseLogoutResponse {
   isLoading: boolean;
@@ -10,8 +14,12 @@ interface UseLogoutResponse {
 export const useLogout = (): UseLogoutResponse => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  const [isLoggedIn, setLoginStatus] = useAtom(userLoginStatus);
   const logout = async () => {
+    if (!isLoggedIn) {
+      toast.error("user not login");
+      return;
+    }
     setIsLoading(true);
     setError(null); // Clear any previous error
 
@@ -25,6 +33,10 @@ export const useLogout = (): UseLogoutResponse => {
       );
       // PAINDING
       //REDIRECT TO THE LOGIN PAGE
+      if (response.status === 200) {
+        toast.success("logout successfully");
+        setLoginStatus(false);
+      }
       return response?.data;
     } catch (err: unknown) {
       // Handle error safely
@@ -33,6 +45,7 @@ export const useLogout = (): UseLogoutResponse => {
       } else {
         setError("An unknown error occurred during logout.");
       }
+      toast.error(error);
       console.log("Error during logout--hirakkk:", err);
     } finally {
       setIsLoading(false);

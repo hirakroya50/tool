@@ -1,5 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { userLoginStatus } from "~/atom";
+import { useAtom } from "jotai";
 
 interface LoginFormInputs {
   email: string;
@@ -29,6 +32,8 @@ export const useLogin = (): UseLoginResponse => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [, setLoginStatus] = useAtom(userLoginStatus);
+
   const login = async (data: LoginFormInputs) => {
     setIsLoading(true);
     setError(null);
@@ -44,6 +49,11 @@ export const useLogin = (): UseLoginResponse => {
           withCredentials: true,
         },
       );
+      if (response.status === 200) {
+        toast.success("login successfully");
+        setLoginStatus(true);
+      }
+
       return response;
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -51,8 +61,10 @@ export const useLogin = (): UseLoginResponse => {
         const errorMessage =
           axiosError.response?.data?.message ?? "An error occurred.";
         setError(errorMessage);
+        toast.error(errorMessage || "Something went wrong");
       } else {
         setError("An unknown error occurred.");
+        toast.error("An unknown error occurred.");
       }
       console.error("Error during login:", err);
       return null;

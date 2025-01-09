@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export const useAccessTokenTest = () => {
   const [loading, setLoading] = useState(false);
@@ -17,10 +18,14 @@ export const useAccessTokenTest = () => {
         { withCredentials: true },
       );
       setData(response.data);
+      if (response.status === 200) {
+        toast.success("Test api request the access token from cached data");
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err);
       }
+      toast.error("error in api request or no token in cached or login first");
     } finally {
       setLoading(false);
     }

@@ -36,18 +36,11 @@ export default function LoginPage() {
   } = useLogout();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    const response = await login(data);
-    if (response) {
-      toast.success("login successfully");
-    }
-    if (errorLogin !== null) {
-      toast.error(errorLogin || "Something went wrong");
-    }
+    await login(data);
   };
 
   const handelLogout = async () => {
     await logout();
-    toast.success("logout successfully");
   };
 
   return (
@@ -132,7 +125,9 @@ const ExtraButtonForTest = ({
           : "Test the access token after login"}
       </button>
       {errorApiRequestWithHttpCookie && (
-        <p>{errorApiRequestWithHttpCookie.message}</p>
+        <p className="text-center text-red-400">
+          {errorApiRequestWithHttpCookie.message}
+        </p>
       )}
       <button
         onClick={handelLogout}
