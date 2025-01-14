@@ -17,6 +17,7 @@ import { type LoginFormInputs } from "~/types";
 import { useProtectedRoute } from "~/hooks/loginHook/useProtectedRoute";
 import { useReGenerateAccessTokenApi } from "~/hooks/loginHook/useReGenerateAccessTokenApi";
 import { useProtectedRouteFromBLogic } from "~/hooks/loginHook/useProtectedRouteFromBLogic";
+import { useRefreshTokenAccessTestAuthMicro } from "~/hooks/loginHook/useRefreshTokenAccessTestAuthMicro";
 
 export default function LoginPage() {
   const {
@@ -97,6 +98,9 @@ export default function LoginPage() {
 const ExtraButtonForTest = () => {
   const { apiRequestWithHttpCookie, loading: loadingApiRequestWithHttpCookie } =
     useAccessTokenTest();
+
+  const { refreshTokenAccessTestAuthMicro } =
+    useRefreshTokenAccessTestAuthMicro();
   const { protectedApiCall } = useProtectedRoute();
   const { protectedApiCallBLogic } = useProtectedRouteFromBLogic();
   const { reGenerateAccessToken } = useReGenerateAccessTokenApi();
@@ -117,6 +121,15 @@ const ExtraButtonForTest = () => {
         className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
       >
         protected route (b-logic-microservice)
+      </button>
+      <button
+        title="make a protected route call to b-logic product"
+        className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
+        onClick={async () => {
+          await refreshTokenAccessTestAuthMicro();
+        }}
+      >
+        refresh-token access test (auth-microservice)
       </button>
       <button
         title="make a protected route call to b-logic product"
