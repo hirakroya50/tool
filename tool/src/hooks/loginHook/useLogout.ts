@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 import { useAtom } from "jotai";
-import { userLoginStatus } from "~/atom";
+import { userAccessToken, userLoginStatus } from "~/atom";
 
 interface UseLogoutResponse {
   isLoading: boolean;
@@ -15,6 +15,8 @@ export const useLogout = (): UseLogoutResponse => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoggedIn, setLoginStatus] = useAtom(userLoginStatus);
+  const [_, setUserAccessToken] = useAtom(userAccessToken);
+
   const logout = async () => {
     if (!isLoggedIn) {
       toast.error("user not login");
@@ -35,6 +37,7 @@ export const useLogout = (): UseLogoutResponse => {
       //REDIRECT TO THE LOGIN PAGE
       if (response.status === 200) {
         toast.success("logout successfully");
+        setUserAccessToken(null);
         setLoginStatus(false);
       }
       return response?.data;

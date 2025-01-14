@@ -1,11 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { userAccessToken } from "~/atom";
+import { useAtom } from "jotai";
 
 export const useReGenerateAccessTokenApi = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [data, setData] = useState<unknown>(null);
+  const [_, setUserAccessToken] = useAtom(userAccessToken);
 
   const reGenerateAccessToken = async () => {
     setLoading(true);
@@ -17,7 +20,7 @@ export const useReGenerateAccessTokenApi = () => {
         {},
         { withCredentials: true },
       );
-      console.log({ accessToken: response?.data?.accessToken });
+      setUserAccessToken(response?.data?.accessToken as string);
       setData(response.data);
       if (response.status === 200) {
         toast.success("success form the protected route");

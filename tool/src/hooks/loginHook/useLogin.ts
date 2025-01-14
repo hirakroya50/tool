@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { userLoginStatus } from "~/atom";
+import { userAccessToken, userLoginStatus } from "~/atom";
 import { useAtom } from "jotai";
 
 interface LoginFormInputs {
@@ -33,6 +33,7 @@ export const useLogin = (): UseLoginResponse => {
   const [error, setError] = useState<string | null>(null);
 
   const [, setLoginStatus] = useAtom(userLoginStatus);
+  const [, setUserAccessToken] = useAtom(userAccessToken);
 
   const login = async (data: LoginFormInputs) => {
     setIsLoading(true);
@@ -50,6 +51,7 @@ export const useLogin = (): UseLoginResponse => {
         },
       );
       console.log({ data: response?.data?.accessToken });
+      setUserAccessToken(response?.data?.accessToken as string);
       // save the access token inmemory
       if (response.status === 200) {
         toast.success("login successfully");

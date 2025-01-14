@@ -26,11 +26,6 @@ export default function LoginPage() {
   } = useForm<LoginFormInputs>();
 
   const { error: errorLogin, isLoading: loginLoading, login } = useLogin();
-  const {
-    apiRequestWithHttpCookie,
-    loading: loadingApiRequestWithHttpCookie,
-    error: errorApiRequestWithHttpCookie,
-  } = useAccessTokenTest();
 
   const {
     error: errorLogout,
@@ -82,11 +77,7 @@ export default function LoginPage() {
 
             {errorLogin && <p>{errorLogin}</p>}
           </form>
-          <ExtraButtonForTest
-            loadingApiRequestWithHttpCookie={loadingApiRequestWithHttpCookie}
-            errorApiRequestWithHttpCookie={errorApiRequestWithHttpCookie}
-            apiRequestWithHttpCookie={apiRequestWithHttpCookie}
-          />
+          <ExtraButtonForTest />
           <button
             onClick={handelLogout}
             className="mt-2 w-full rounded-lg bg-green-600 p-2 text-white hover:bg-green-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-green-800"
@@ -103,15 +94,9 @@ export default function LoginPage() {
 
 // Define the props for the form input
 
-const ExtraButtonForTest = ({
-  loadingApiRequestWithHttpCookie,
-  errorApiRequestWithHttpCookie,
-  apiRequestWithHttpCookie,
-}: {
-  loadingApiRequestWithHttpCookie: boolean;
-  errorApiRequestWithHttpCookie?: { message: string } | null;
-  apiRequestWithHttpCookie: () => Promise<void>;
-}) => {
+const ExtraButtonForTest = () => {
+  const { apiRequestWithHttpCookie, loading: loadingApiRequestWithHttpCookie } =
+    useAccessTokenTest();
   const { protectedApiCall } = useProtectedRoute();
   const { protectedApiCallBLogic } = useProtectedRouteFromBLogic();
   const { reGenerateAccessToken } = useReGenerateAccessTokenApi();
@@ -154,11 +139,6 @@ const ExtraButtonForTest = ({
       >
         regenerate the access token (auth-microS)
       </button>
-      {errorApiRequestWithHttpCookie && (
-        <p className="text-center text-red-400">
-          {errorApiRequestWithHttpCookie.message}
-        </p>
-      )}
     </div>
   );
 };
