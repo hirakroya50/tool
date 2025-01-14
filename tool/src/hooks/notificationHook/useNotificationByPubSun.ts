@@ -4,7 +4,7 @@ export interface NotificationWebSocketMessage {
 }
 const useNotificationByPubSun = (url: string): NotificationWebSocketMessage => {
   const [messages, setMessages] = useState<string[]>([]);
-
+  console.log({ messages });
   useEffect(() => {
     const socket = new WebSocket(url);
 

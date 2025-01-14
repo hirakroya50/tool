@@ -49,6 +49,8 @@ export const useLogin = (): UseLoginResponse => {
           withCredentials: true,
         },
       );
+      console.log({ data: response?.data?.accessToken });
+      // save the access token inmemory
       if (response.status === 200) {
         toast.success("login successfully");
         setLoginStatus(true);

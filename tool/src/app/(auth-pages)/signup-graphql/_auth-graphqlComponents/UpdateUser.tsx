@@ -53,10 +53,6 @@ export const UpdateUser = ({
         <input
           {...register("mobile", {
             required: "Mobile number is required",
-            pattern: {
-              value: /^[0-9]{10}$/,
-              message: "Please enter a valid 10-digit mobile number",
-            },
           })}
           type="text"
           placeholder="Mobile Number"

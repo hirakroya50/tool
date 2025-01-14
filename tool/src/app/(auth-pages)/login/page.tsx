@@ -14,6 +14,9 @@ import { useLogout } from "~/hooks/loginHook/useLogout";
 import { FormInput } from "./_components/FormInput";
 import { PasswordInput } from "./_components/PasswordButton";
 import { type LoginFormInputs } from "~/types";
+import { useProtectedRoute } from "~/hooks/loginHook/useProtectedRoute";
+import { useReGenerateAccessTokenApi } from "~/hooks/loginHook/useReGenerateAccessTokenApi";
+import { useProtectedRouteFromBLogic } from "~/hooks/loginHook/useProtectedRouteFromBLogic";
 
 export default function LoginPage() {
   const {
@@ -83,10 +86,14 @@ export default function LoginPage() {
             loadingApiRequestWithHttpCookie={loadingApiRequestWithHttpCookie}
             errorApiRequestWithHttpCookie={errorApiRequestWithHttpCookie}
             apiRequestWithHttpCookie={apiRequestWithHttpCookie}
-            isLoadingLogout={isLoadingLogout}
-            handelLogout={handelLogout}
-            errorLogout={errorLogout}
           />
+          <button
+            onClick={handelLogout}
+            className="mt-2 w-full rounded-lg bg-green-600 p-2 text-white hover:bg-green-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-green-800"
+          >
+            {isLoadingLogout ? "loading....." : "Logout (auth-microS)"}
+          </button>
+          {errorLogout && <p>{errorLogout}</p>}
         </div>
         <About />
       </div>
@@ -100,20 +107,34 @@ const ExtraButtonForTest = ({
   loadingApiRequestWithHttpCookie,
   errorApiRequestWithHttpCookie,
   apiRequestWithHttpCookie,
-  isLoadingLogout,
-  handelLogout,
-  errorLogout,
 }: {
   loadingApiRequestWithHttpCookie: boolean;
   errorApiRequestWithHttpCookie?: { message: string } | null;
   apiRequestWithHttpCookie: () => Promise<void>;
-  isLoadingLogout: boolean;
-  handelLogout: () => void;
-  errorLogout?: string | null;
 }) => {
+  const { protectedApiCall } = useProtectedRoute();
+  const { protectedApiCallBLogic } = useProtectedRouteFromBLogic();
+  const { reGenerateAccessToken } = useReGenerateAccessTokenApi();
   return (
     <div className="mt-4 flex flex-col justify-center rounded-md border bg-gray-700 dark:bg-dark-card">
       <button
+        onClick={async () => {
+          await protectedApiCall();
+        }}
+        className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
+      >
+        protected route (auth microservice)
+      </button>
+      <button
+        onClick={async () => {
+          await protectedApiCallBLogic();
+        }}
+        className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
+      >
+        protected route (b-logic-microservice)
+      </button>
+      <button
+        title="make a protected route call to b-logic product"
         className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
         onClick={async () => {
           await apiRequestWithHttpCookie();
@@ -122,20 +143,22 @@ const ExtraButtonForTest = ({
       >
         {loadingApiRequestWithHttpCookie
           ? "Loading..."
-          : "Test the access token after login"}
+          : "refresh-token access test (b-logic)"}
+      </button>
+
+      <button
+        onClick={async () => {
+          await reGenerateAccessToken();
+        }}
+        className="m-4 rounded-lg bg-[#6b4545] p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
+      >
+        regenerate the access token (auth-microS)
       </button>
       {errorApiRequestWithHttpCookie && (
         <p className="text-center text-red-400">
           {errorApiRequestWithHttpCookie.message}
         </p>
       )}
-      <button
-        onClick={handelLogout}
-        className="m-4 rounded-lg bg-green-600 p-2 text-white hover:bg-green-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-green-800"
-      >
-        {isLoadingLogout ? "loading....." : "Logout"}
-      </button>
-      {errorLogout && <p>{errorLogout}</p>}
     </div>
   );
 };

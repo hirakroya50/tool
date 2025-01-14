@@ -35,7 +35,7 @@ export const useSignUpOrCreateUser = ({
       await signUp({
         variables: data,
       });
-      toast.success("login successfully");
+      toast.success("signup successfully");
       refetchUserList();
     } catch (error) {
       console.log("error is comming ..........", error);

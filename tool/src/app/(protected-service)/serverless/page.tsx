@@ -26,7 +26,15 @@ const PostManager: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="mb-4 text-center text-2xl font-bold">Post Manager</h1>
+      <p className="text-center text-xl underline">
+        CRUD Operations in Database with Serverless Backend
+      </p>
+      <div className="flex justify-center pb-3">
+        <ol className="mt-4 list-inside list-disc text-gray-700">
+          <li>CRUD operations on a PostgreSQL via a serverless backend.</li>
+          <li>Implemented connection pooling for serverless.</li>
+        </ol>
+      </div>
       {loading && <p className="text-center text-blue-500">Loading...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
 
@@ -51,7 +59,7 @@ const PostManager: React.FC = () => {
       </div>
 
       {/* Display Posts */}
-      <div className="h-[calc(100vh-15rem)] overflow-auto rounded border border-red-600 bg-white p-4 shadow">
+      <div className="h-[calc(100vh-15rem)] overflow-auto rounded bg-white p-4 shadow">
         <h2 className="mb-4 text-xl font-semibold">
           Total Posts: {posts?.length}{" "}
         </h2>

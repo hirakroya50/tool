@@ -29,23 +29,24 @@ export default async function Home() {
           <h2 className="text-gradient mb-6 text-3xl font-semibold">
             Features to Explore:
           </h2>
-          <div className="flex flex-wrap gap-1 text-lg">
+          <div className="flex flex-wrap gap-3 text-lg">
             {[
               { href: "/login", label: "Login" },
               { href: "/login-trpc", label: "Login with TRPC" },
               { href: "/signup-graphql", label: "Signup with GraphQL" },
               { href: "/s3", label: "AWS S3 CRUD Operations" },
+              { href: "/serverless", label: "serverless backend" },
+              { href: "/notification-service", label: "Notification Service" },
+              { href: "/websocket", label: "WebSocket Chat" },
               {
                 href: "/debouncing-throttling",
                 label: "Debouncing and Throttling",
               },
-              { href: "/notification-service", label: "Notification Service" },
-              { href: "/websocket", label: "WebSocket Chat" },
-              { href: "/serverless", label: "serverless backend" },
             ].map((item, index) => (
               <Link
                 href={item.href}
-                className="m-0 rounded-lg border p-2 transition-colors duration-300 hover:bg-[#2d2f4d] hover:text-pink-500"
+                target="_blank"
+                className="m-0 rounded-lg border p-3 transition-colors duration-300 hover:bg-[#2d2f4d] hover:text-pink-500"
                 key={index}
               >
                 {item.label}
