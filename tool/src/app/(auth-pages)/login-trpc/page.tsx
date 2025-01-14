@@ -34,6 +34,10 @@ export default function LoginPage() {
           <h2 className="mb-6 text-center text-2xl font-bold text-gray-700 dark:text-dark-textPrimary">
             Login by trpc
           </h2>
+          <p className="pb-3 text-xs">
+            its just a example. trpc to make axios call / can use next backend
+            and also with trpc{" "}
+          </p>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <FormInput
