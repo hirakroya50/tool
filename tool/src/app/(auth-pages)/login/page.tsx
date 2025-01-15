@@ -6,7 +6,6 @@ import {
   UseFormRegister,
   type SubmitHandler,
 } from "react-hook-form";
-import toast from "react-hot-toast";
 
 import { useAccessTokenTest } from "~/hooks/loginHook/useAccessTokenTest";
 import { useLogin } from "~/hooks/loginHook/useLogin";
@@ -45,7 +44,7 @@ export default function LoginPage() {
   return (
     <div>
       <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-dark-background">
-        <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg dark:bg-dark-card">
+        <div className="w-full max-w-xl rounded-lg bg-white p-8 shadow-lg dark:bg-dark-card">
           <h2 className="mb-6 text-center text-2xl font-bold text-gray-700 dark:text-dark-textPrimary">
             Login
           </h2>
@@ -106,43 +105,54 @@ const ExtraButtonForTest = () => {
   const { reGenerateAccessToken } = useReGenerateAccessTokenApi();
   return (
     <div className="mt-4 flex flex-col justify-center rounded-md border bg-gray-700 dark:bg-dark-card">
-      <button
-        onClick={async () => {
-          await protectedApiCall();
-        }}
-        className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
-      >
-        protected route (auth microservice)
-      </button>
-      <button
-        onClick={async () => {
-          await protectedApiCallBLogic();
-        }}
-        className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
-      >
-        protected route (b-logic-microservice)
-      </button>
-      <button
-        title="make a protected route call to b-logic product"
-        className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
-        onClick={async () => {
-          await refreshTokenAccessTestAuthMicro();
-        }}
-      >
-        refresh-token access test (auth-microservice)
-      </button>
-      <button
-        title="make a protected route call to b-logic product"
-        className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
-        onClick={async () => {
-          await apiRequestWithHttpCookie();
-        }}
-        disabled={loadingApiRequestWithHttpCookie}
-      >
-        {loadingApiRequestWithHttpCookie
-          ? "Loading..."
-          : "refresh-token access test (b-logic)"}
-      </button>
+      <p className="text-white">
+        access token will expire in 10s (test in button no 1 and 2)
+      </p>
+
+      <div className="m-3 flex rounded-md bg-red-400">
+        <button
+          onClick={async () => {
+            await protectedApiCall();
+          }}
+          title="protected api call with accessToken"
+          className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
+        >
+          1. protected route (auth microservice)
+        </button>
+        <button
+          onClick={async () => {
+            await protectedApiCallBLogic();
+          }}
+          title="protected api call with accessToken"
+          className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
+        >
+          2. protected route (b-logic-microservice)
+        </button>
+      </div>
+      <div className="mx-3 flex rounded-lg bg-green-600">
+        <button
+          title="make a protected route call to b-logic product"
+          className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
+          onClick={async () => {
+            await refreshTokenAccessTestAuthMicro();
+          }}
+        >
+          3. refresh-token access test (auth-microservice)
+        </button>
+        <button
+          title="make a protected route call to b-logic product"
+          className="m-4 rounded-lg bg-yellow-600 p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
+          onClick={async () => {
+            await apiRequestWithHttpCookie();
+          }}
+          disabled={loadingApiRequestWithHttpCookie}
+        >
+          4.{" "}
+          {loadingApiRequestWithHttpCookie
+            ? "Loading..."
+            : "refresh-token access test (b-logic)"}
+        </button>
+      </div>
 
       <button
         onClick={async () => {
@@ -150,7 +160,7 @@ const ExtraButtonForTest = () => {
         }}
         className="m-4 rounded-lg bg-[#6b4545] p-2 text-white hover:bg-yellow-700 dark:bg-dark-card dark:text-dark-textPrimary dark:hover:bg-yellow-800"
       >
-        regenerate the access token (auth-microS)
+        5. regenerate the accessToken (auth-microS)
       </button>
     </div>
   );
@@ -162,7 +172,7 @@ const About = () => {
       Implemented Login and Signup Functionality with React and NestJS Developed
       <ol className="list-disc space-y-3 p-5 pl-6 text-gray-800">
         {[
-          "Developed a user authentication system using React and NestJS, integrating form handling with react-hook-form and asynchronous API calls for login and signup processes.",
+          "Developed a user authentication system using Next.js and NestJS, integrating form handling with react-hook-form and asynchronous API calls for login and signup processes.",
           "Implemented the login functionality with secure token handling using cookies and error management via custom hooks (useLogin and useAccessTokenTest).",
           "Utilized React components (FormInput, PasswordInput) for seamless user input validation and feedback using toast notifications.",
           "Integrated a signup process in the NestJS backend, ensuring unique user registration by checking for existing email, username, or mobile conflicts.",
